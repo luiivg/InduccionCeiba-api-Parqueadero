@@ -6,8 +6,10 @@ package co.parking.domain;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 
-import co.parking.domain.en.TipoVehiculo;
-import co.parking.domain.ex.VehiculoNoAutorizadoException;
+import co.parking.domain.enumeration.TipoVehiculo;
+import co.parking.domain.exception.VehiculoNoAutorizadoException;
+import co.parking.entity.Factura;
+import co.parking.entity.Vehiculo;
 import co.parking.utils.Constants;
 import co.parking.utils.DateUtils;
 

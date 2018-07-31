@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.parking.domain.Vehiculo;
+import co.parking.entity.Vehiculo;
 import co.parking.service.VehiculoService;
 import co.parking.utils.Utils;
 

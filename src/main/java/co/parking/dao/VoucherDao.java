@@ -5,11 +5,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import co.parking.domain.Factura;
+import co.parking.entity.Factura;
 
 public interface VoucherDao extends CrudRepository<Factura, Long> {
 
-	@Query(value = "select f from Factura f where f.idVehiculo = :idVehiculo AND totalAPagar is null")
+	@Query(value = "SELECT f FROM Factura f WHERE f.idVehiculo=:idVehiculo AND fechaSalida is null")
 	public Factura consultarVehiculo(@Param("idVehiculo") long idVehiculo);
 	
 }

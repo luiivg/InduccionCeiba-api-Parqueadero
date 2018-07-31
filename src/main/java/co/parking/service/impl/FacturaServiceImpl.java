@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 
 import co.parking.dao.VehiculoDao;
 import co.parking.dao.VoucherDao;
-import co.parking.domain.Factura;
-import co.parking.domain.Vehiculo;
 import co.parking.domain.Vigilante;
+import co.parking.entity.Factura;
+import co.parking.entity.Vehiculo;
 import co.parking.service.FacturaService;
-import co.parking.service.ex.ServiceException;
+import co.parking.service.exception.ServiceException;
 
 /**
  * @author luisa.vargas
