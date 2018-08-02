@@ -38,11 +38,12 @@ public class FacturaRestController {
 	public ResponseEntity<Factura> generarFactura(@PathVariable String placa) throws ServiceException {
 		try {
 			Vehiculo vehiculoActual = vehiculoService.consultarVehiculoPorMatricula(placa);
-			if(vehiculoActual.equals(null)){
+			if(vehiculoActual==null){
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}else{
+				Factura facturaALiquidar = facturaService.buscarFacturaVehiculo(vehiculoActual.getId());
+				return new ResponseEntity<>(this.facturaService.liquidarFactura(facturaALiquidar, vehiculoActual), HttpStatus.OK);
 			}
-			Factura facturaALiquidar = facturaService.buscarFacturaVehiculo(vehiculoActual.getId());
-			return new ResponseEntity<>(this.facturaService.liquidarFactura(facturaALiquidar, vehiculoActual), HttpStatus.OK);
 		} catch (Exception e) {
 			LOGGER.error("Error al registrar el vehiculo con placa --{}{}", placa);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
