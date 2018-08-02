@@ -58,8 +58,8 @@ public class FacturaServiceImpl implements FacturaService{
 			}
 			return facturaLiquidada;
 		}catch (Exception e) {
-			LOGGER.error("Error en el servicio al registrar el vehiculo por placa--{}{}", vehiculo.getPlaca(), e);
-			throw new ServiceException("Error en el servicio al registrar el vehiculo por placa--{}{}", e);
+			LOGGER.error("Error en el servicio al liquidar factura para la placa--{}{}", vehiculo.getPlaca(), e);
+			throw new ServiceException("Error en el servicio al liquidar factura para la placa--{}{}", e);
 		}
 		
 	}

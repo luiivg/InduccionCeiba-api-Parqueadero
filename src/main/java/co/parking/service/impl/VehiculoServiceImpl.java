@@ -32,7 +32,8 @@ public class VehiculoServiceImpl implements VehiculoService {
 	private FacturaDao facturaDao;
 	
 	@Autowired
-	Vigilante vigilante;
+	private Vigilante vigilante;
+	
 
 	@Override
 	public Boolean signupVehiculo(Vehiculo vehiculo) throws ServiceException {
@@ -57,7 +58,7 @@ public class VehiculoServiceImpl implements VehiculoService {
 				facturaDao.save(factura);
 				return true;
 			}else{
-				LOGGER.error("Ocurrio un error al iniciar facturacion para el vehiculo" , vehiculo.getPlaca());
+				LOGGER.error("Ocurrio un error al iniciar facturacion para el vehiculo" );
 				return false;
 			}
 		} catch (Exception e) {
