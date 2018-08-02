@@ -31,12 +31,13 @@ public class VehiculoServiceImpl implements VehiculoService {
 	@Autowired
 	private FacturaDao facturaDao;
 	
-	Vigilante vigilante = Vigilante.getInstance();
+	@Autowired
+	Vigilante vigilante;
 
 	@Override
 	public Boolean signupVehiculo(Vehiculo vehiculo) throws ServiceException {
 		try {
-			Long id = vigilante.validarEstaRegistrado(vehiculoDao.consultarVehiculoPorPlaca(vehiculo.getPlaca()));
+			Long id = vigilante.validarEstaRegistrado(consultarVehiculoPorMatricula(vehiculo.getPlaca()));
 			vigilante.celdaDisponible(vehiculo.getTipo(), vehiculosEstacionados(vehiculo.getTipo()));
 			
 			Calendar calendario = Calendar.getInstance();
@@ -48,7 +49,7 @@ public class VehiculoServiceImpl implements VehiculoService {
 			}
 			
 			Vehiculo vehiculoguardado = vehiculoDao.save(vehiculo);
-			if(vehiculoguardado != null){
+			if(vehiculoguardado!=null){
 				Factura factura = new Factura();
 				factura.setIdVehiculo(vehiculoguardado.getId());
 				factura.setFechaIngreso(LocalDateTime.now());
@@ -67,10 +68,7 @@ public class VehiculoServiceImpl implements VehiculoService {
 	
 	@Override
 	public int vehiculosEstacionados(TipoVehiculo tipo)  throws ServiceException{
-		vehiculoDao.vehiculosParqueados(tipo);
-		int vehiculop = vehiculoDao.vehiculosParqueados(tipo);
-		return vehiculop;
-		
+		return vehiculoDao.vehiculosParqueados(tipo);
 	}
 
 	@Override
@@ -85,9 +83,8 @@ public class VehiculoServiceImpl implements VehiculoService {
 
 	@Override
 	public Vehiculo consultarVehiculoPorMatricula(String placa) throws ServiceException {
-			Vehiculo vehiculo = vehiculoDao.consultarVehiculoPorPlaca(placa);
-			System.out.println(vehiculo.getId());
-			return vehiculo;
+			return vehiculoDao.consultarVehiculoPorPlaca(placa);
+			
 	}
 
 	

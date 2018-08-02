@@ -4,8 +4,6 @@
 package co.parking.unitaria;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
@@ -18,7 +16,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import co.parking.dao.VehiculoDao;
-import co.parking.domain.Calculadora;
 import co.parking.domain.Vehiculo;
 import co.parking.domain.Vigilante;
 import co.parking.domain.enumeration.TipoVehiculo;
@@ -32,7 +29,6 @@ import co.parking.utils.Constants;
 public class TestVigilante {
 	
 	Vigilante vigilante;
-	private Boolean respuesta;
 	private static final String PLACA_CON_A = "ADN04A";
 	private static final String PLACA_SIN_A = "WRQ86D";
 	private static final String PLACA_REGISTRADA = "DKP98P";

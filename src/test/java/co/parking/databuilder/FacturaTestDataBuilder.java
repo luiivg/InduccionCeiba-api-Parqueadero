@@ -7,7 +7,7 @@ import co.parking.domain.Factura;
 
 public class FacturaTestDataBuilder {
 	
-	private static final Long VEHICULO = 1L;
+	private static final long VEHICULO = 1;
 	private static final double TOTAL_A_PAGAR = 10000;
 	
 	private LocalDateTime fechaIngreso;

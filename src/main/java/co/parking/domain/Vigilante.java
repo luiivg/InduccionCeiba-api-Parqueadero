@@ -6,6 +6,9 @@ package co.parking.domain;
 
 import java.util.Calendar;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import co.parking.domain.enumeration.TipoVehiculo;
 import co.parking.domain.exception.VehiculoNoAutorizadoException;
 import co.parking.utils.Constants;
@@ -15,6 +18,8 @@ import co.parking.utils.Constants;
  * @author luisa.vargas
  *
  */
+
+@Component
 public class Vigilante {
 
 	private static Vigilante vigilante;

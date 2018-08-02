@@ -5,7 +5,7 @@ package co.parking.databuilder;
 import co.parking.domain.Vehiculo;
 import co.parking.domain.enumeration.TipoVehiculo;
 
-public class VehiculoMotoTestDataBuilder {
+public class VehiculoTestDataBuilder {
 	
 	private static final TipoVehiculo TIPO = TipoVehiculo.MOTO;
 	private static final String PLACA = "NWK23D";
@@ -19,22 +19,22 @@ public class VehiculoMotoTestDataBuilder {
 	private boolean activo;
 	
 	
-	public VehiculoMotoTestDataBuilder setTipo(TipoVehiculo tipo) {
+	public VehiculoTestDataBuilder setTipo(TipoVehiculo tipo) {
 		this.tipo = tipo;
 		return this;
 	}
 
-	public VehiculoMotoTestDataBuilder setPlaca(String placa) {
+	public VehiculoTestDataBuilder setPlaca(String placa) {
 		this.placa = placa;
 		return this;
 	}
 
-	public VehiculoMotoTestDataBuilder setCilindraje(int cilindraje) {
+	public VehiculoTestDataBuilder setCilindraje(int cilindraje) {
 		this.cilindraje = cilindraje;
 		return this;
 	}
 
-	public VehiculoMotoTestDataBuilder setActivo(boolean activo) {
+	public VehiculoTestDataBuilder setActivo(boolean activo) {
 		this.activo = activo;
 		return this;
 	} 

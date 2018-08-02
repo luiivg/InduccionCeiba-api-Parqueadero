@@ -7,7 +7,7 @@ import org.junit.Test;
 import co.parking.domain.Vehiculo;
 import co.parking.domain.enumeration.TipoVehiculo;
 
-public class VehiculoMotoTest {
+public class VehiculoTest {
 
 	private static final TipoVehiculo TIPO = TipoVehiculo.MOTO;
 	private static final String PLACA = "NWK23D";
@@ -20,20 +20,20 @@ public class VehiculoMotoTest {
 		/**
 		 * Arrange
 		 */
-		VehiculoMotoTestDataBuilder vehiculoMotoDataBuilder = new VehiculoMotoTestDataBuilder().
+		VehiculoTestDataBuilder vehiculoDataBuilder = new VehiculoTestDataBuilder().
 				setTipo(TIPO).setPlaca(PLACA).setCilindraje(CILINDRAJE).setActivo(ACTIVO);
 	
 		/**
 		 * Act
 		 */
-		Vehiculo vehiculoMoto =  vehiculoMotoDataBuilder.build();
+		Vehiculo vehiculo =  vehiculoDataBuilder.build();
 		
 		/**
 		 * Asserts
 		 */
-		assertEquals(TIPO, vehiculoMoto.getTipo());
-		assertEquals(PLACA, vehiculoMoto.getPlaca());
-		assertEquals(CILINDRAJE, vehiculoMoto.getCilindraje());
-		assertEquals(ACTIVO, vehiculoMoto.isActivo());
+		assertEquals(TIPO, vehiculo.getTipo());
+		assertEquals(PLACA, vehiculo.getPlaca());
+		assertEquals(CILINDRAJE, vehiculo.getCilindraje());
+		assertEquals(ACTIVO, vehiculo.isActivo());
 	}
 }
