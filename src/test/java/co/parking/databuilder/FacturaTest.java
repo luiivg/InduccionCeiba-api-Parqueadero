@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import org.junit.Assert;
 import org.junit.Test;
 
-import co.parking.entity.Factura;
+import co.parking.domain.Factura;
 
 public class FacturaTest {
 

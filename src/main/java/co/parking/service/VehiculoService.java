@@ -2,8 +2,8 @@ package co.parking.service;
 
 import java.util.List;
 
+import co.parking.domain.Vehiculo;
 import co.parking.domain.enumeration.TipoVehiculo;
-import co.parking.entity.Vehiculo;
 import co.parking.service.exception.ServiceException;
 
 public interface VehiculoService {

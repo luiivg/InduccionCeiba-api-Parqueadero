@@ -1,4 +1,4 @@
-package co.parking.entity;
+package co.parking.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

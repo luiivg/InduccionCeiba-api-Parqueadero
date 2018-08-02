@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.parking.entity.Factura;
-import co.parking.entity.Vehiculo;
+import co.parking.domain.Factura;
+import co.parking.domain.Vehiculo;
 import co.parking.service.FacturaService;
 import co.parking.service.VehiculoService;
 import co.parking.service.exception.ServiceException;
 
 @RestController
-@RequestMapping(value = "/api/voucher")
-public class VoucherRestController {
+@RequestMapping(value = "/api")
+public class FacturaRestController {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(VoucherRestController.class);
+	private static Logger LOGGER = LoggerFactory.getLogger(FacturaRestController.class);
 
 	@Autowired
-	private VehiculoService voucherService;
+	private VehiculoService vevhiculoService;
 	
 	@Autowired
 	private FacturaService facturaService;
@@ -34,7 +34,7 @@ public class VoucherRestController {
 	public ResponseEntity<Boolean> signupVoucher(@RequestBody Vehiculo vehiculo) {
 		try {
 			vehiculo.setActivo(true);
-			return new ResponseEntity<Boolean>(voucherService.signupVehiculo(vehiculo), HttpStatus.OK);
+			return new ResponseEntity<Boolean>(vevhiculoService.signupVehiculo(vehiculo), HttpStatus.OK);
 		} catch (Exception e) {
 			LOGGER.error("Error al registrar el vehiculo con placa --{}{}", vehiculo.getPlaca());
 			return new ResponseEntity<Boolean>(Boolean.FALSE, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -45,7 +45,7 @@ public class VoucherRestController {
 	@PostMapping(value = "/generarFactura/{placa}")
 	public ResponseEntity<Factura> generarFactura(@PathVariable String placa) throws ServiceException {
 		try {
-			Vehiculo vehiculoActual = voucherService.consultarVehiculoPorMatricula(placa);
+			Vehiculo vehiculoActual = vevhiculoService.consultarVehiculoPorMatricula(placa);
 			if(vehiculoActual.equals(null)){
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}

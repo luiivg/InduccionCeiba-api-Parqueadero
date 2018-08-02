@@ -12,10 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.parking.dao.VehiculoDao;
-import co.parking.dao.VoucherDao;
+import co.parking.dao.FacturaDao;
+import co.parking.domain.Calculadora;
+import co.parking.domain.Factura;
+import co.parking.domain.Vehiculo;
 import co.parking.domain.Vigilante;
-import co.parking.entity.Factura;
-import co.parking.entity.Vehiculo;
 import co.parking.service.FacturaService;
 import co.parking.service.exception.ServiceException;
 
@@ -26,20 +27,21 @@ import co.parking.service.exception.ServiceException;
 @Service
 public class FacturaServiceImpl implements FacturaService{
 
-	private static Logger LOGGER = LoggerFactory.getLogger(VehiculoServiceImpl.class);
+	private static Logger LOGGER = LoggerFactory.getLogger(FacturaServiceImpl.class);
 
 	@Autowired
 	private VehiculoDao vehiculoDao;
-
+	
 	@Autowired
-	private VoucherDao voucherDao;
+	private FacturaDao facturaDao;
 	
 	Vigilante vigilante = Vigilante.getInstance();
+	Calculadora calculadora = Calculadora.getInstance();
 
 	
 	@Override
 	public Factura buscarFacturaVehiculo(long idVehiculo) throws ServiceException {
-		return voucherDao.consultarVehiculo(idVehiculo);
+		return facturaDao.consultarVehiculo(idVehiculo);
 	}
 
 	@Override
@@ -47,8 +49,8 @@ public class FacturaServiceImpl implements FacturaService{
 		try{
 			factura.setId(factura.getId());
 			factura.setFechaSalida(LocalDateTime.now());
-			factura.setTotalAPagar(vigilante.calcularValorAPagar(factura, vehiculo));
-			Factura facturaLiquidada = voucherDao.save(factura);
+			factura.setTotalAPagar(calculadora.calcularValorAPagar(factura, vehiculo));
+			Factura facturaLiquidada = facturaDao.save(factura);
 			if(facturaLiquidada.getFechaSalida() != null){
 				vehiculo.setId(vehiculo.getId());
 				vehiculo.setActivo(false);

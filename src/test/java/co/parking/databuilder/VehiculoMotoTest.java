@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import co.parking.domain.Vehiculo;
 import co.parking.domain.enumeration.TipoVehiculo;
-import co.parking.entity.Vehiculo;
 
 public class VehiculoMotoTest {
 

@@ -2,8 +2,8 @@ package co.parking.databuilder;
 
 
 
+import co.parking.domain.Vehiculo;
 import co.parking.domain.enumeration.TipoVehiculo;
-import co.parking.entity.Vehiculo;
 
 public class VehiculoMotoTestDataBuilder {
 	

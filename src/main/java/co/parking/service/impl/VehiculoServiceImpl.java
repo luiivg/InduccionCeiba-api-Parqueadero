@@ -1,6 +1,7 @@
 package co.parking.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,11 +11,11 @@ import org.springframework.stereotype.Service;
 
 
 import co.parking.dao.VehiculoDao;
-import co.parking.dao.VoucherDao;
+import co.parking.dao.FacturaDao;
+import co.parking.domain.Factura;
+import co.parking.domain.Vehiculo;
 import co.parking.domain.Vigilante;
 import co.parking.domain.enumeration.TipoVehiculo;
-import co.parking.entity.Factura;
-import co.parking.entity.Vehiculo;
 import co.parking.service.VehiculoService;
 import co.parking.service.exception.ServiceException;
 
@@ -23,12 +24,12 @@ import co.parking.service.exception.ServiceException;
 public class VehiculoServiceImpl implements VehiculoService {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(VehiculoServiceImpl.class);
-
+	
 	@Autowired
 	private VehiculoDao vehiculoDao;
-
+	
 	@Autowired
-	private VoucherDao voucherDao;
+	private FacturaDao facturaDao;
 	
 	Vigilante vigilante = Vigilante.getInstance();
 
@@ -37,17 +38,22 @@ public class VehiculoServiceImpl implements VehiculoService {
 		try {
 			Long id = vigilante.validarEstaRegistrado(vehiculoDao.consultarVehiculoPorPlaca(vehiculo.getPlaca()));
 			vigilante.celdaDisponible(vehiculo.getTipo(), vehiculosEstacionados(vehiculo.getTipo()));
-			vigilante.validarAutorizacionDias(vehiculo.getPlaca());
+			
+			Calendar calendario = Calendar.getInstance();
+			int dia = calendario.get(Calendar.DAY_OF_WEEK);
+			vigilante.validarAutorizacionDias(vehiculo.getPlaca(), dia);
+			
 			if(id != null){
 				vehiculo.setId(id);
 			}
+			
 			Vehiculo vehiculoguardado = vehiculoDao.save(vehiculo);
 			if(vehiculoguardado != null){
 				Factura factura = new Factura();
 				factura.setIdVehiculo(vehiculoguardado.getId());
 				factura.setFechaIngreso(LocalDateTime.now());
 				factura.setTotalAPagar(0);
-				voucherDao.save(factura);
+				facturaDao.save(factura);
 				return true;
 			}else{
 				LOGGER.error("Ocurrio un error al iniciar facturacion para el vehiculo" , vehiculo.getPlaca());

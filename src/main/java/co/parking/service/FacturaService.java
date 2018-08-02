@@ -3,8 +3,8 @@
  */
 package co.parking.service;
 
-import co.parking.entity.Factura;
-import co.parking.entity.Vehiculo;
+import co.parking.domain.Factura;
+import co.parking.domain.Vehiculo;
 import co.parking.service.exception.ServiceException;
 
 

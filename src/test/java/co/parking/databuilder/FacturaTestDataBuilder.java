@@ -2,7 +2,7 @@ package co.parking.databuilder;
 
 import java.time.LocalDateTime;
 
-import co.parking.entity.Factura;
+import co.parking.domain.Factura;
 
 
 public class FacturaTestDataBuilder {
