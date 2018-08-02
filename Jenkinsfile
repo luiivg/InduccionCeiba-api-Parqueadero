@@ -27,7 +27,7 @@ pipeline {
 			      doGenerateSubmoduleConfigurations: false, extensions: [ ], gitTool: 
 			      'Git_centos',submoduleCfg: [ ], userRemoteConfigs: [ [ credentialsId:
 			      'GitHub_lvg4936',url:
-			      'https://github.com/luiivg/ParqueaderoCeiba.git']]])
+			      'https://github.com/luiivg/InduccionCeiba-api-Parqueadero.git']]])
 			}
 		}
 		
