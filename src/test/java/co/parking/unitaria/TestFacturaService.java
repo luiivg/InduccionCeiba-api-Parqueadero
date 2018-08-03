@@ -18,8 +18,8 @@ import co.parking.databuilder.FacturaTestDataBuilder;
 import co.parking.databuilder.VehiculoTestDataBuilder;
 import co.parking.domain.Factura;
 import co.parking.domain.Vehiculo;
-import co.parking.service.FacturaService;
 import co.parking.service.exception.ServiceException;
+import co.parking.service.impl.FacturaServiceImpl;
 
 public class TestFacturaService {
 
@@ -27,7 +27,7 @@ public class TestFacturaService {
 	private static final String EXCEPCION = "Error en el servicio al liquidar factura para la placa--{}{}";
 	
 	@InjectMocks
-	private FacturaService faturaService;
+	private FacturaServiceImpl faturaService;
 	
 	@Mock
 	private VehiculoDao vehiculoDao;

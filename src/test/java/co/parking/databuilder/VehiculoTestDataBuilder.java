@@ -7,12 +7,19 @@ import co.parking.domain.enumeration.TipoVehiculo;
 
 public class VehiculoTestDataBuilder {
 	
+	private long id;
 	private TipoVehiculo tipo;
 	private String placa;
 	private int cilindraje;
 	private boolean activo;
-	
-	
+
+
+	public VehiculoTestDataBuilder setId(long id) {
+		this.id = id;
+		return this;
+
+	}
+
 	public VehiculoTestDataBuilder setTipo(TipoVehiculo tipo) {
 		this.tipo = tipo;
 		return this;
@@ -33,7 +40,11 @@ public class VehiculoTestDataBuilder {
 		return this;
 	} 
 	
-	public Vehiculo build(){
+	public Vehiculo buildNew(){
 		return new Vehiculo(this.tipo, this.placa, this.cilindraje, this.activo);
+	}
+	
+	public Vehiculo build(){
+		return new Vehiculo(this.id, this.tipo, this.placa, this.cilindraje, this.activo);
 	}
 }

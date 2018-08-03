@@ -49,23 +49,51 @@ public class TestFacturaRestController {
 	private FacturaService facturaService;
 	
 	@Test
-	public void liqidarFactura() throws Exception{
+	public void liqidarFactura500() throws Exception{
 		
-	VehiculoTestDataBuilder vehiculobuild = new VehiculoTestDataBuilder();
-	Vehiculo vehiculo = vehiculobuild.build();
+		Vehiculo vehiculo = new Vehiculo();
+		
+		when(vehiculoService.consultarVehiculoPorMatricula(PLACA)).thenReturn(vehiculo);
 	
-	when(vehiculoService.consultarVehiculoPorMatricula(PLACA)).thenReturn(vehiculo);
-
-	FacturaTestDataBuilder facturaBuid = new FacturaTestDataBuilder();
-	Factura factura = facturaBuid.build();
+		FacturaTestDataBuilder facturaBuid = new FacturaTestDataBuilder();
+		Factura factura = facturaBuid.build();
+		
+		when(facturaService.buscarFacturaVehiculo(-3)).thenReturn(factura);
+		
+		String json = "{}";
+		
+		this.mockMvc.perform((MockMvcRequestBuilders.post("/api/factura/generarFactura/{placa}", PLACA).accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON)).content(json)).andExpect(status().isInternalServerError());
+		
+	}
 	
-	when(facturaService.buscarFacturaVehiculo(1)).thenReturn(factura);
-	
-	String json = "{}";
-	
-	this.mockMvc.perform((MockMvcRequestBuilders.post("/api/factura/generarFactura/{placa}", PLACA).accept(MediaType.APPLICATION_JSON)
+	@Test
+	public void liqidarFacturaNotFound() throws Exception{
+		
+		String json = "{}";
+		
+		this.mockMvc.perform((MockMvcRequestBuilders.post("/api/factura/generarFactura/{placa}", PLACA).accept(MediaType.APPLICATION_JSON)
 			.contentType(MediaType.APPLICATION_JSON)).content(json)).andExpect(status().isNotFound());
 		
 	}
 
+	@Test
+	public void liqidarFactura() throws Exception{
+		
+		VehiculoTestDataBuilder vehiculobuild = new VehiculoTestDataBuilder().setActivo(true).setCilindraje(200).setPlaca(PLACA).setId(1);
+		Vehiculo vehiculo = vehiculobuild.build();
+		
+		when(vehiculoService.consultarVehiculoPorMatricula(PLACA)).thenReturn(vehiculo);
+		
+		FacturaTestDataBuilder facturaBuid = new FacturaTestDataBuilder();
+		Factura factura = facturaBuid.build();
+		
+		when(facturaService.buscarFacturaVehiculo(vehiculo.getId())).thenReturn(factura);
+		
+		String json = "{}";
+		
+		this.mockMvc.perform((MockMvcRequestBuilders.post("/api/factura/generarFactura/{placa}", PLACA).accept(MediaType.APPLICATION_JSON)
+			.contentType(MediaType.APPLICATION_JSON)).content(json)).andExpect(status().isCreated());
+		
+	}
 }

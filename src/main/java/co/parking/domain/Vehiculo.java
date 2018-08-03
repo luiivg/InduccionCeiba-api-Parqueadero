@@ -49,6 +49,16 @@ public class Vehiculo implements Serializable {
 		this.activo = activo;
 	}
 
+	
+	public Vehiculo(Long id, @NotNull TipoVehiculo tipo, @NotNull String placa, int cilindraje, boolean activo) {
+		super();
+		this.id = id;
+		this.tipo = tipo;
+		this.placa = placa;
+		this.cilindraje = cilindraje;
+		this.activo = activo;
+	}
+
 	/**
 	 * @return the id
 	 */

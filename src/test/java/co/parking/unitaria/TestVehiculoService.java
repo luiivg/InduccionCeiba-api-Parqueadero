@@ -24,8 +24,8 @@ import co.parking.domain.Factura;
 import co.parking.domain.Vehiculo;
 import co.parking.domain.Vigilante;
 import co.parking.domain.exception.VehiculoNoAutorizadoException;
-import co.parking.service.VehiculoService;
 import co.parking.service.exception.ServiceException;
+import co.parking.service.impl.VehiculoServiceImpl;
 
 
 public class TestVehiculoService {
@@ -38,7 +38,7 @@ public class TestVehiculoService {
 	
 	
 	@InjectMocks
-	private VehiculoService vehiculoService;
+	private VehiculoServiceImpl vehiculoService;
 	
 	@Mock
 	private VehiculoDao vehiculoDao;
