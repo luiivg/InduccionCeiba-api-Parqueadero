@@ -1,9 +1,9 @@
 package co.parking.unitaria;
 
-import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,8 +24,8 @@ import co.parking.domain.Factura;
 import co.parking.domain.Vehiculo;
 import co.parking.domain.Vigilante;
 import co.parking.domain.exception.VehiculoNoAutorizadoException;
+import co.parking.service.VehiculoService;
 import co.parking.service.exception.ServiceException;
-import co.parking.service.impl.VehiculoServiceImpl;
 
 
 public class TestVehiculoService {
@@ -34,11 +34,11 @@ public class TestVehiculoService {
 	private static final int CELDAS_OCUPADAS = 0;
 	private static final long ID_VEHICULO = 1;
 	private static final int DIA_AUTORIZADO = 3;
-	private static final String EXCEPCION = "Error en el servicio al registrar el vehiculo por placa--{}{}";
+
 	
 	
 	@InjectMocks
-	private VehiculoServiceImpl vehiculoImpl;
+	private VehiculoService vehiculoService;
 	
 	@Mock
 	private VehiculoDao vehiculoDao;
@@ -66,7 +66,7 @@ public class TestVehiculoService {
 		Mockito.when(vehiculoDao.save(vehiculo)).thenReturn(null);
 		
 		//assert
-		assertFalse((vehiculoImpl.signupVehiculo(vehiculo)));
+		assertFalse((vehiculoService.signupVehiculo(vehiculo)));
 	}
 	
 	@Test
@@ -87,7 +87,7 @@ public class TestVehiculoService {
 		Mockito.when(facturaDao.save(factura)).thenReturn(factura);
 		
 		//assert
-		assertTrue(vehiculoImpl.signupVehiculo(vehiculo));
+		assertTrue(vehiculoService.signupVehiculo(vehiculo));
 	}
 	
 		
@@ -97,7 +97,7 @@ public class TestVehiculoService {
 		List<Vehiculo> vehiculos = new ArrayList<>();
 		Mockito.when(vehiculoDao.findAll()).thenReturn(vehiculos);
 		
-		assertTrue(vehiculoImpl.consultarTodosLosVehiculos().isEmpty());
+		assertTrue(vehiculoService.consultarTodosLosVehiculos().isEmpty());
 		
 	}
 	
@@ -112,7 +112,7 @@ public class TestVehiculoService {
 		
 		Mockito.when(vehiculoDao.findAll()).thenReturn(vehiculos);
 		
-		assertFalse(vehiculoImpl.consultarTodosLosVehiculos().isEmpty());
+		assertFalse(vehiculoService.consultarTodosLosVehiculos().isEmpty());
 		
 	}
 	

@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -33,9 +32,6 @@ public class TestVehiculoRestController {
 	@Autowired
 	private MockMvc mockMvc;
 	
-	@MockBean
-	private VehiculoServiceImpl vehiculoImplement;
-	
 	@Test
 	public void guardarVehiculo() throws Exception{
 		String json = "{ \"tipo\": \"MOTO\" , \"placa\": \"MOTO\" , \"cilindraje\": \"500\"}";
@@ -43,5 +39,7 @@ public class TestVehiculoRestController {
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/api/vehiculo/save").accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated());
 	}
+	
+	
 
 }

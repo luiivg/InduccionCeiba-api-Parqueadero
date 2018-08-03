@@ -3,6 +3,9 @@
  */
 package co.parking.integracion;
 
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +13,19 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import co.parking.config.ApiParqueaderoApplication;
-import co.parking.service.impl.FacturaServiceImpl;
+import co.parking.databuilder.FacturaTestDataBuilder;
+import co.parking.databuilder.VehiculoTestDataBuilder;
+import co.parking.domain.Factura;
+import co.parking.domain.Vehiculo;
+import co.parking.service.FacturaService;
+import co.parking.service.VehiculoService;
+
 
 /**
  * @author luisa.vargas
@@ -27,9 +37,35 @@ import co.parking.service.impl.FacturaServiceImpl;
 public class TestFacturaRestController {
 	
 	
+	private static final String PLACA = "SRQ69E";
+	
+	@Autowired
+	private MockMvc mockMvc;
+	
+	@MockBean
+	private VehiculoService vehiculoService;
+	
+	@MockBean
+	private FacturaService facturaService;
+	
 	@Test
-	public void test(){
-		assert(true);
+	public void liqidarFactura() throws Exception{
+		
+	VehiculoTestDataBuilder vehiculobuild = new VehiculoTestDataBuilder();
+	Vehiculo vehiculo = vehiculobuild.build();
+	
+	when(vehiculoService.consultarVehiculoPorMatricula(PLACA)).thenReturn(vehiculo);
+
+	FacturaTestDataBuilder facturaBuid = new FacturaTestDataBuilder();
+	Factura factura = facturaBuid.build();
+	
+	when(facturaService.buscarFacturaVehiculo(1)).thenReturn(factura);
+	
+	String json = "{}";
+	
+	this.mockMvc.perform((MockMvcRequestBuilders.post("/api/factura/generarFactura/{placa}", PLACA).accept(MediaType.APPLICATION_JSON)
+			.contentType(MediaType.APPLICATION_JSON)).content(json)).andExpect(status().isNotFound());
+		
 	}
 
 }

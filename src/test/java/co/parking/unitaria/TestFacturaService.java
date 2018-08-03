@@ -18,9 +18,8 @@ import co.parking.databuilder.FacturaTestDataBuilder;
 import co.parking.databuilder.VehiculoTestDataBuilder;
 import co.parking.domain.Factura;
 import co.parking.domain.Vehiculo;
-import co.parking.domain.exception.VehiculoNoAutorizadoException;
+import co.parking.service.FacturaService;
 import co.parking.service.exception.ServiceException;
-import co.parking.service.impl.FacturaServiceImpl;
 
 public class TestFacturaService {
 
@@ -28,7 +27,7 @@ public class TestFacturaService {
 	private static final String EXCEPCION = "Error en el servicio al liquidar factura para la placa--{}{}";
 	
 	@InjectMocks
-	private FacturaServiceImpl faturaServideImpl;
+	private FacturaService faturaService;
 	
 	@Mock
 	private VehiculoDao vehiculoDao;
@@ -48,7 +47,7 @@ public class TestFacturaService {
 		Factura factura = fasturaVehiculo.build();
 		Mockito.when(facturaDao.consultarVehiculo(ID_VEHICULO)).thenReturn(factura);
 		
-		Factura fact =  faturaServideImpl.buscarFacturaVehiculo(ID_VEHICULO);
+		Factura fact =  faturaService.buscarFacturaVehiculo(ID_VEHICULO);
 		
 		assertNotNull(fact);
 	}
@@ -58,7 +57,7 @@ public class TestFacturaService {
 		
 		Mockito.when(facturaDao.consultarVehiculo(ID_VEHICULO)).thenReturn(null);
 		
-		Factura fact =  faturaServideImpl.buscarFacturaVehiculo(ID_VEHICULO);
+		Factura fact =  faturaService.buscarFacturaVehiculo(ID_VEHICULO);
 		
 		assertNull(fact);
 	}
@@ -73,7 +72,7 @@ public class TestFacturaService {
 		Vehiculo vehiculo = vehiculoMoto.build();
 		Mockito.when(vehiculoDao.save(vehiculo)).thenReturn(vehiculo);
 		
-		Factura fact = faturaServideImpl.liquidarFactura(factura, vehiculo);
+		Factura fact = faturaService.liquidarFactura(factura, vehiculo);
 		
 		assertNotNull(fact);
 	}
@@ -89,7 +88,7 @@ public class TestFacturaService {
 		Vehiculo vehiculo = vehiculoMoto.build();
 		Mockito.when(vehiculoDao.save(vehiculo)).thenReturn(vehiculo);
 		try{
-			faturaServideImpl.liquidarFactura(factura, vehiculo);
+			faturaService.liquidarFactura(factura, vehiculo);
 			fail();		
 		}catch(ServiceException e){
 			assertEquals(EXCEPCION,e.getMessage());

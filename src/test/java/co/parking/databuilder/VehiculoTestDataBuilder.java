@@ -7,12 +7,6 @@ import co.parking.domain.enumeration.TipoVehiculo;
 
 public class VehiculoTestDataBuilder {
 	
-	private static final TipoVehiculo TIPO = TipoVehiculo.MOTO;
-	private static final String PLACA = "NWK23D";
-	private static final int CILINDRAJE = 160;
-	private static final boolean ACTIVO = true;
-	
-	
 	private TipoVehiculo tipo;
 	private String placa;
 	private int cilindraje;

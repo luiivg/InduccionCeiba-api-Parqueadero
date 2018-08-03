@@ -7,7 +7,6 @@ package co.parking.domain;
 import java.util.Calendar;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import co.parking.domain.enumeration.TipoVehiculo;
 import co.parking.domain.exception.VehiculoNoAutorizadoException;

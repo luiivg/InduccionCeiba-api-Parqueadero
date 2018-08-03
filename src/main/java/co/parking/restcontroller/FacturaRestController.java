@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,7 +41,7 @@ public class FacturaRestController {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}else{
 				Factura facturaALiquidar = facturaService.buscarFacturaVehiculo(vehiculoActual.getId());
-				return new ResponseEntity<>(this.facturaService.liquidarFactura(facturaALiquidar, vehiculoActual), HttpStatus.OK);
+				return new ResponseEntity<>(this.facturaService.liquidarFactura(facturaALiquidar, vehiculoActual), HttpStatus.CREATED);
 			}
 		} catch (Exception e) {
 			LOGGER.error("Error al registrar el vehiculo con placa --{}{}", placa);
