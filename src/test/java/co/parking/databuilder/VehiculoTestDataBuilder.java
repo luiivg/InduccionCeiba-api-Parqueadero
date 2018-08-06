@@ -2,6 +2,8 @@ package co.parking.databuilder;
 
 
 
+import java.time.LocalDateTime;
+
 import co.parking.domain.Vehiculo;
 import co.parking.domain.enumeration.TipoVehiculo;
 
@@ -12,6 +14,7 @@ public class VehiculoTestDataBuilder {
 	private String placa;
 	private int cilindraje;
 	private boolean activo;
+	private LocalDateTime fechaIngreso; 
 
 
 	public VehiculoTestDataBuilder setId(long id) {
@@ -40,11 +43,16 @@ public class VehiculoTestDataBuilder {
 		return this;
 	} 
 	
+	public VehiculoTestDataBuilder setFechIngreso(LocalDateTime fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
+		return this;
+	} 
+	
 	public Vehiculo buildNew(){
-		return new Vehiculo(this.tipo, this.placa, this.cilindraje, this.activo);
+		return new Vehiculo(this.tipo, this.placa, this.cilindraje, this.activo, this.fechaIngreso);
 	}
 	
 	public Vehiculo build(){
-		return new Vehiculo(this.id, this.tipo, this.placa, this.cilindraje, this.activo);
+		return new Vehiculo(this.id, this.tipo, this.placa, this.cilindraje, this.activo, this.fechaIngreso);
 	}
 }

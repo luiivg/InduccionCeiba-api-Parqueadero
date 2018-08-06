@@ -28,10 +28,11 @@ public class VehiculoRestController {
 	@Autowired
 	VehiculoService vehiculoService;
 
+
 	@PostMapping(value = "/save")
 	public ResponseEntity<Boolean> signupVoucher(@RequestBody Vehiculo vehiculo) {
 		try {
-			vehiculo.setActivo(true);
+			
 			return new ResponseEntity<Boolean>(vehiculoService.signupVehiculo(vehiculo), HttpStatus.CREATED);
 		} catch (Exception e) {
 			LOGGER.error("Error al registrar el vehiculo con placa --{}{}", e);
@@ -40,12 +41,13 @@ public class VehiculoRestController {
 		}
 	}
 	
-	@GetMapping(value = "/listarVehiculos")
+	
+	@GetMapping(value = "/listar")
 	public ResponseEntity<List<Vehiculo>> consultarTodosLosVehiculos() {
 		try {
 			List<Vehiculo> vehiculos = vehiculoService.consultarTodosLosVehiculos();
 			if (!Utils.isNull(vehiculos)) {
-				return new ResponseEntity<List<Vehiculo>>(vehiculos, HttpStatus.OK);
+				return new ResponseEntity<>(vehiculos, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}

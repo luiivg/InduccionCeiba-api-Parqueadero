@@ -31,10 +31,11 @@ public class FacturaRestController {
 	@Autowired
 	private FacturaService facturaService;
 	
+	@CrossOrigin(origins = { "http://localhost:4200" })
 	@PostMapping(value = "/generarFactura/{placa}")
 	public ResponseEntity<Factura> generarFactura(@PathVariable String placa) throws ServiceException {
 		try {
-			Vehiculo vehiculoActual = vehiculoService.consultarVehiculoPorMatricula(placa);
+			Vehiculo vehiculoActual = vehiculoService.consultarVehiculoPorMatricula(placa);// debe hacerla el servicio
 			if(vehiculoActual==null){
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}else{

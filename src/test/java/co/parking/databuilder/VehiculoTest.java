@@ -2,6 +2,8 @@ package co.parking.databuilder;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalDateTime;
+
 import org.junit.Test;
 
 import co.parking.domain.Vehiculo;
@@ -20,8 +22,10 @@ public class VehiculoTest {
 		/**
 		 * Arrange
 		 */
+		LocalDateTime fechaIngreso = LocalDateTime.now().minusHours(3);
+		
 		VehiculoTestDataBuilder vehiculoDataBuilder = new VehiculoTestDataBuilder().
-				setTipo(TIPO).setPlaca(PLACA).setCilindraje(CILINDRAJE).setActivo(ACTIVO);
+				setTipo(TIPO).setPlaca(PLACA).setCilindraje(CILINDRAJE).setActivo(ACTIVO).setFechIngreso(fechaIngreso);
 	
 		/**
 		 * Act
@@ -35,5 +39,6 @@ public class VehiculoTest {
 		assertEquals(PLACA, vehiculo.getPlaca());
 		assertEquals(CILINDRAJE, vehiculo.getCilindraje());
 		assertEquals(ACTIVO, vehiculo.isActivo());
+		assertEquals(fechaIngreso, vehiculo.getFechaIngreso());
 	}
 }

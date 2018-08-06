@@ -1,7 +1,9 @@
 package co.parking.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -29,35 +31,46 @@ public class Vehiculo implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@NotNull
 	private TipoVehiculo tipo;
-
+	
 	@NotNull
 	private String placa;
 
 	private int cilindraje;
 
 	private boolean activo;
+	
+	@NotNull
+	@Column(name = "fecha_ingreso")
+	private LocalDateTime fechaIngreso;
 
 	public Vehiculo() {
 
 	}
 		
-	public Vehiculo(@NotNull TipoVehiculo tipo, @NotNull String placa, int cilindraje, boolean activo) {
-		super();
-		this.tipo = tipo;
-		this.placa = placa;
-		this.cilindraje = cilindraje;
-		this.activo = activo;
-	}
-
 	
-	public Vehiculo(Long id, @NotNull TipoVehiculo tipo, @NotNull String placa, int cilindraje, boolean activo) {
+
+	public Vehiculo(Long id, @NotNull TipoVehiculo tipo, @NotNull String placa, int cilindraje, boolean activo,
+			@NotNull LocalDateTime fechaIngreso) {
 		super();
 		this.id = id;
 		this.tipo = tipo;
 		this.placa = placa;
 		this.cilindraje = cilindraje;
 		this.activo = activo;
+		this.fechaIngreso = fechaIngreso;
 	}
+	
+	public Vehiculo(@NotNull TipoVehiculo tipo, @NotNull String placa, int cilindraje, boolean activo,
+			@NotNull LocalDateTime fechaIngreso) {
+		super();
+		this.tipo = tipo;
+		this.placa = placa;
+		this.cilindraje = cilindraje;
+		this.activo = activo;
+		this.fechaIngreso = fechaIngreso;
+	}
+
+
 
 	/**
 	 * @return the id
@@ -133,6 +146,26 @@ public class Vehiculo implements Serializable {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
+
+
+
+	/**
+	 * @return the fechaIngreso
+	 */
+	public LocalDateTime getFechaIngreso() {
+		return fechaIngreso;
+	}
+
+
+
+	/**
+	 * @param fechaIngreso the fechaIngreso to set
+	 */
+	public void setFechaIngreso(LocalDateTime fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
+	}
+	
+	
 
 
 }

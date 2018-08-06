@@ -21,7 +21,7 @@ public class Calculadora {
 
 	}
 
-	public static Calculadora getInstance() {
+	public static Calculadora getInstance() {//inyeccion de dependencia
 		if (calculadora == null) {
 			calculadora = new Calculadora();
 		}

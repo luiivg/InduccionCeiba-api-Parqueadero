@@ -1,7 +1,5 @@
 package co.parking.dao;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -18,9 +16,5 @@ public interface VehiculoDao extends CrudRepository<Vehiculo, Long> {
 	
 	@Query("SELECT COUNT(*) FROM Vehiculo v WHERE v.tipo=:tipo AND v.activo = TRUE")
     public int vehiculosParqueados(@Param("tipo") TipoVehiculo tipo);
-	
-	@Query("select v.placa, v.tipo, f.fechaIngreso from Vehiculo v inner join Factura f on v.id = f.idVehiculo")
-	public List<Vehiculo> findAll();
-	
 
 }

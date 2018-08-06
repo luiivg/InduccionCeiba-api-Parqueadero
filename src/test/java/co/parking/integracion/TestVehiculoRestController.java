@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -56,11 +57,11 @@ public class TestVehiculoRestController {
 	@Test
 	public void listarVehiculos() throws Exception{
 		
-		List<Vehiculo> vehiculos = Arrays.asList(new Vehiculo(TipoVehiculo.CARRO, "SRQ69E", 200, true));
+		List<Vehiculo> vehiculos = Arrays.asList(new Vehiculo(TipoVehiculo.CARRO, "SRQ69E", 200, true, LocalDateTime.now()));
 		
 		when(vehiculoService.consultarTodosLosVehiculos()).thenReturn(vehiculos);
 		
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/api/vehiculo/listarVehiculos").accept(MediaType.APPLICATION_JSON))
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/api/vehiculo/listar").accept(MediaType.APPLICATION_JSON))
 		.andDo(print()).andExpect(status().isOk()).andReturn();
 	}
 	
@@ -70,7 +71,7 @@ public class TestVehiculoRestController {
 		List<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
 		when(vehiculoService.consultarTodosLosVehiculos()).thenReturn(vehiculos);
 		
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/api/vehiculo/listarVehiculos").accept(MediaType.APPLICATION_JSON))
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/api/vehiculo/listar").accept(MediaType.APPLICATION_JSON))
 		.andDo(print()).andExpect(status().isNoContent()).andReturn();
 		
 	}

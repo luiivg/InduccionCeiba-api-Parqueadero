@@ -48,7 +48,8 @@ public class VehiculoServiceImpl implements VehiculoService {
 			if(id != null){
 				vehiculo.setId(id);
 			}
-			
+			vehiculo.setActivo(true);
+			vehiculo.setFechaIngreso(LocalDateTime.now());
 			Vehiculo vehiculoguardado = vehiculoDao.save(vehiculo);
 			if(vehiculoguardado!=null){
 				Factura factura = new Factura();
@@ -74,12 +75,8 @@ public class VehiculoServiceImpl implements VehiculoService {
 
 	@Override
 	public List<Vehiculo> consultarTodosLosVehiculos() throws ServiceException {
-		try {
-			return (List<Vehiculo>) vehiculoDao.findAll();
-		} catch (Exception e) {
-			LOGGER.error("Error al obtener los vehiculos --{}{}", e);
-			throw new ServiceException("Error al obtener los vehiculos --{}{}", e);
-		}
+		return (List<Vehiculo>) vehiculoDao.findAll();
+		
 	}
 
 	@Override
