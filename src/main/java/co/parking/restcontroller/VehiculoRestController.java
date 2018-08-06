@@ -34,13 +34,13 @@ public class VehiculoRestController {
 			vehiculo.setActivo(true);
 			return new ResponseEntity<Boolean>(vehiculoService.signupVehiculo(vehiculo), HttpStatus.CREATED);
 		} catch (Exception e) {
-			LOGGER.error("Error al registrar el vehiculo con placa --{}{}", vehiculo.getPlaca());
+			LOGGER.error("Error al registrar el vehiculo con placa --{}{}", e);
 			return new ResponseEntity<Boolean>(Boolean.FALSE, HttpStatus.INTERNAL_SERVER_ERROR);
 
 		}
 	}
 	
-	@GetMapping(value = "/vehiculos")
+	@GetMapping(value = "/listarVehiculos")
 	public ResponseEntity<List<Vehiculo>> consultarTodosLosVehiculos() {
 		try {
 			List<Vehiculo> vehiculos = vehiculoService.consultarTodosLosVehiculos();
@@ -54,5 +54,7 @@ public class VehiculoRestController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	
 
 }
