@@ -30,8 +30,6 @@ public class FacturaRestController {
 	
 	@Autowired
 	private FacturaService facturaService;
-
-	
 	
 	@PostMapping(value = "/generarFactura/{placa}")
 	public ResponseEntity<Factura> generarFactura(@PathVariable String placa) throws ServiceException {

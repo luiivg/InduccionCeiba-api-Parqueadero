@@ -38,6 +38,21 @@ public class TestCalculadora {
 		calculadora = Calculadora.getInstance();
 	}
 	
+	@Test
+	public void calcularValorMenorHora(){
+		LocalDateTime fechaIngreso = LocalDateTime.now().minusMinutes(40);
+		LocalDateTime fechaSalida = LocalDateTime.now();
+		
+		Factura factura = new Factura();
+		factura.setFechaIngreso(fechaIngreso);
+		factura.setFechaSalida(fechaSalida);
+		
+		Vehiculo vehiculo = new Vehiculo();
+		vehiculo.setTipo(TipoVehiculo.MOTO);
+		
+		assertEquals(500.0, calculadora.calcularValorAPagar(factura, vehiculo), 0.0);
+	}
+	
 	
 	@Test
 	public void calcularHoraCarro(){

@@ -47,6 +47,9 @@ public class Calculadora {
 		if (horasresiduo >= MAXIMO_HORAS_DIA) {
 			diasParqueo += 1;
 		} else {
+			if(horasresiduo < 1){
+				horasresiduo = 1;
+			}
 			double precioHoras = horasresiduo * valorHora;
 			totalPagar += precioHoras;
 		}
