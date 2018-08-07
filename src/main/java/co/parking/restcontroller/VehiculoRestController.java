@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,6 @@ public class VehiculoRestController {
 	@PostMapping(value = "/save")
 	public ResponseEntity<Boolean> signupVoucher(@RequestBody Vehiculo vehiculo) {
 		try {
-			
 			return new ResponseEntity<Boolean>(vehiculoService.signupVehiculo(vehiculo), HttpStatus.CREATED);
 		} catch (Exception e) {
 			LOGGER.error("Error al registrar el vehiculo con placa --{}{}", e);
@@ -40,7 +40,6 @@ public class VehiculoRestController {
 
 		}
 	}
-	
 	
 	@GetMapping(value = "/listar")
 	public ResponseEntity<List<Vehiculo>> consultarTodosLosVehiculos() {

@@ -69,7 +69,7 @@ public class VehiculoServiceImpl implements VehiculoService {
 	}
 	
 	@Override
-	public int vehiculosEstacionados(TipoVehiculo tipo)  throws ServiceException{
+	public int vehiculosEstacionados(TipoVehiculo tipo){
 		return vehiculoDao.vehiculosParqueados(tipo);
 	}
 
@@ -80,7 +80,7 @@ public class VehiculoServiceImpl implements VehiculoService {
 	}
 
 	@Override
-	public Vehiculo consultarVehiculoPorMatricula(String placa) throws ServiceException {
+	public Vehiculo consultarVehiculoPorMatricula(String placa){
 			return vehiculoDao.consultarVehiculoPorPlaca(placa);
 			
 	}

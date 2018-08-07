@@ -14,6 +14,6 @@ public interface VehiculoService {
 
 	public List<Vehiculo> consultarTodosLosVehiculos() throws ServiceException;
 
-	public Vehiculo consultarVehiculoPorMatricula(String placa) throws ServiceException;
+	public Vehiculo consultarVehiculoPorMatricula(String placa);
 
 }
