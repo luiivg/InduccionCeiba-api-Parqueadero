@@ -58,7 +58,7 @@ public class TestFacturaRestController {
 		FacturaTestDataBuilder facturaBuid = new FacturaTestDataBuilder();
 		Factura factura = facturaBuid.build();
 		
-		when(facturaService.buscarFacturaVehiculo(-3)).thenReturn(factura);
+		when(facturaService.buscarFacturaVehiculo(vehiculo)).thenReturn(factura);
 		
 		String json = "{}";
 		
@@ -88,7 +88,7 @@ public class TestFacturaRestController {
 		FacturaTestDataBuilder facturaBuid = new FacturaTestDataBuilder();
 		Factura factura = facturaBuid.build();
 		
-		when(facturaService.buscarFacturaVehiculo(vehiculo.getId())).thenReturn(factura);
+		when(facturaService.buscarFacturaVehiculo(vehiculo)).thenReturn(factura);
 		
 		String json = "{}";
 		

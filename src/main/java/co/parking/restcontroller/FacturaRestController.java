@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,21 +33,27 @@ public class FacturaRestController {
 	@Autowired
 	private FacturaService facturaService;
 	
-	@CrossOrigin(origins = { "http://localhost:4200" })
-	@PostMapping(value = "/generarFactura/{placa}")
-	public ResponseEntity<Factura> generarFactura(@PathVariable String placa) throws ServiceException {
+	
+	@GetMapping("/generarFactura/{placa}")
+	public ResponseEntity<Factura> buscarFactura( @PathVariable String placa) throws ServiceException {
+		Vehiculo vehiculoActual = vehiculoService.consultarVehiculoPorMatricula(placa);
+		if(vehiculoActual==null){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}else{
+			Factura facturaALiquidar = facturaService.buscarFacturaVehiculo(vehiculoActual);
+			return new ResponseEntity<>(facturaALiquidar, HttpStatus.OK);
+		}
+	}
+	
+	@PostMapping(value = "/liquidar")
+	public ResponseEntity<Factura> generarFactura(@RequestBody Factura factura) throws ServiceException {
 		try {
-			Vehiculo vehiculoActual = vehiculoService.consultarVehiculoPorMatricula(placa);// debe hacerla el servicio
-			if(vehiculoActual==null){
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}else{
-				Factura facturaALiquidar = facturaService.buscarFacturaVehiculo(vehiculoActual.getId());
-				return new ResponseEntity<>(this.facturaService.liquidarFactura(facturaALiquidar, vehiculoActual), HttpStatus.CREATED);
-			}
+			return new ResponseEntity<>(this.facturaService.liquidarFactura(factura), HttpStatus.CREATED);
 		} catch (Exception e) {
-			LOGGER.error("Error al registrar el vehiculo con placa --{}{}", placa);
+			LOGGER.error("Error al registrar el vehiculo con placa --{}{}", e);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
 
 }

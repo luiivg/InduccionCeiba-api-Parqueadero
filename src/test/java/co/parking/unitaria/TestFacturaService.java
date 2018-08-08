@@ -47,7 +47,10 @@ public class TestFacturaService {
 		Factura factura = fasturaVehiculo.build();
 		Mockito.when(facturaDao.consultarVehiculo(ID_VEHICULO)).thenReturn(factura);
 		
-		Factura fact =  faturaService.buscarFacturaVehiculo(ID_VEHICULO);
+		VehiculoTestDataBuilder vehiculobuild = new VehiculoTestDataBuilder();
+		Vehiculo vehiculo = vehiculobuild.build();
+		
+		Factura fact =  faturaService.buscarFacturaVehiculo(vehiculo);
 		
 		assertNotNull(fact);
 	}
@@ -57,7 +60,9 @@ public class TestFacturaService {
 		
 		Mockito.when(facturaDao.consultarVehiculo(ID_VEHICULO)).thenReturn(null);
 		
-		Factura fact =  faturaService.buscarFacturaVehiculo(ID_VEHICULO);
+		Vehiculo vehiculo = new Vehiculo();
+		
+		Factura fact =  faturaService.buscarFacturaVehiculo(vehiculo);
 		
 		assertNull(fact);
 	}
@@ -72,7 +77,7 @@ public class TestFacturaService {
 		Vehiculo vehiculo = vehiculoMoto.build();
 		Mockito.when(vehiculoDao.save(vehiculo)).thenReturn(vehiculo);
 		
-		Factura fact = faturaService.liquidarFactura(factura, vehiculo);
+		Factura fact = faturaService.liquidarFactura(factura);
 		
 		assertNotNull(fact);
 	}
@@ -88,7 +93,7 @@ public class TestFacturaService {
 		Vehiculo vehiculo = vehiculoMoto.build();
 		Mockito.when(vehiculoDao.save(vehiculo)).thenReturn(vehiculo);
 		try{
-			faturaService.liquidarFactura(factura, vehiculo);
+			faturaService.liquidarFactura(factura);
 			fail();		
 		}catch(ServiceException e){
 			assertEquals(EXCEPCION,e.getMessage());

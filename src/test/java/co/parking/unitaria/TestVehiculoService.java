@@ -1,6 +1,7 @@
 package co.parking.unitaria;
 
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -66,7 +67,7 @@ public class TestVehiculoService {
 		Mockito.when(vehiculoDao.save(vehiculo)).thenReturn(null);
 		
 		//assert
-		assertFalse((vehiculoService.signupVehiculo(vehiculo)));
+		assertEquals(null,vehiculoService.signupVehiculo(vehiculo));
 	}
 	
 	@Test
@@ -87,7 +88,7 @@ public class TestVehiculoService {
 		Mockito.when(facturaDao.save(factura)).thenReturn(factura);
 		
 		//assert
-		assertTrue(vehiculoService.signupVehiculo(vehiculo));
+		assertEquals(vehiculo,vehiculoService.signupVehiculo(vehiculo));
 	}
 	
 		

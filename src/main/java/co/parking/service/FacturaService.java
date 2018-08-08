@@ -14,7 +14,7 @@ import co.parking.service.exception.ServiceException;
  */
 public interface FacturaService {
 
-	public Factura buscarFacturaVehiculo(long idVehiculo) throws ServiceException;
+	public Factura buscarFacturaVehiculo(Vehiculo vehiculo) throws ServiceException;
 	
-	public Factura liquidarFactura(Factura factura, Vehiculo vehiculo) throws ServiceException;
+	public Factura liquidarFactura(Factura factura) throws ServiceException;
 }

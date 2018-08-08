@@ -36,7 +36,7 @@ public class VehiculoServiceImpl implements VehiculoService {
 	
 
 	@Override
-	public Boolean signupVehiculo(Vehiculo vehiculo) throws ServiceException {
+	public Vehiculo signupVehiculo(Vehiculo vehiculo) throws ServiceException {
 		try {
 			Long id = vigilante.validarEstaRegistrado(consultarVehiculoPorMatricula(vehiculo.getPlaca()));
 			vigilante.celdaDisponible(vehiculo.getTipo(), vehiculosEstacionados(vehiculo.getTipo()));
@@ -57,15 +57,15 @@ public class VehiculoServiceImpl implements VehiculoService {
 				factura.setFechaIngreso(LocalDateTime.now());
 				factura.setTotalAPagar(0);
 				facturaDao.save(factura);
-				return true;
+				return vehiculoguardado;
 			}else{
 				LOGGER.error("Ocurrio un error al iniciar facturacion para el vehiculo" );
-				return false;
 			}
 		} catch (Exception e) {
 			LOGGER.error("Error en el servicio al registrar el vehiculo por placa--{}{}", vehiculo.getPlaca(), e);
 			throw new ServiceException("Error en el servicio al registrar el vehiculo por placa--{}{}", e);
 		}
+		return vehiculo;
 	}
 	
 	@Override
@@ -83,6 +83,11 @@ public class VehiculoServiceImpl implements VehiculoService {
 	public Vehiculo consultarVehiculoPorMatricula(String placa){
 			return vehiculoDao.consultarVehiculoPorPlaca(placa);
 			
+	}
+
+	@Override
+	public Vehiculo consultarVehiculoPorid(long id) {
+		return vehiculoDao.consultarVehiculoPorId(id);
 	}
 
 	

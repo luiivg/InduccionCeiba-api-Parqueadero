@@ -31,11 +31,11 @@ public class Calculadora {
 	private static final int MAXIMO_HORAS_DIA = 9;
 	private static final int HORAS_DIA = 24;
 
-	public double calcularValorAPagar(Factura factura, Vehiculo vehiculo){
+	public double calcularValorAPagar(Vehiculo vehiculo){
 		double totalPagar = 0;
 		
 		LocalDateTime fechaHoraActual = LocalDateTime.now();
-		double horasEnParqueadero = ChronoUnit.HOURS.between(factura.getFechaIngreso(), fechaHoraActual);
+		double horasEnParqueadero = ChronoUnit.HOURS.between(vehiculo.getFechaIngreso(), fechaHoraActual);
 		int diasParqueo = (int)horasEnParqueadero / HORAS_DIA;
 		int horasresiduo = (int) horasEnParqueadero % HORAS_DIA;
 		
