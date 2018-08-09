@@ -19,6 +19,7 @@ import co.parking.domain.Vehiculo;
 import co.parking.domain.Vigilante;
 import co.parking.service.FacturaService;
 import co.parking.service.exception.ServiceException;
+import co.parking.utils.Utils;
 
 /**
  * @author luisa.vargas
@@ -51,7 +52,7 @@ public class FacturaServiceImpl implements FacturaService{
 	public Factura liquidarFactura(Factura factura) throws ServiceException {
 		try{
 			Factura facturaLiquidada = facturaDao.save(factura);
-			if(facturaLiquidada.getFechaSalida() != null){
+			if(!Utils.isNull(facturaLiquidada.getFechaSalida())){
 				Vehiculo vehiculoActualizar = vehiculoDao.consultarVehiculoPorId(facturaLiquidada.getIdVehiculo());
 				vehiculoActualizar.setActivo(false);
 				vehiculoDao.save(vehiculoActualizar);

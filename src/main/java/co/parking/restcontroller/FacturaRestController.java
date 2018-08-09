@@ -19,6 +19,7 @@ import co.parking.domain.Vehiculo;
 import co.parking.service.FacturaService;
 import co.parking.service.VehiculoService;
 import co.parking.service.exception.ServiceException;
+import co.parking.utils.Utils;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
@@ -33,11 +34,10 @@ public class FacturaRestController {
 	@Autowired
 	private FacturaService facturaService;
 	
-	
 	@GetMapping("/generarFactura/{placa}")
 	public ResponseEntity<Factura> buscarFactura( @PathVariable String placa) throws ServiceException {
 		Vehiculo vehiculoActual = vehiculoService.consultarVehiculoPorMatricula(placa);
-		if(vehiculoActual==null){
+		if(Utils.isNull(vehiculoActual)){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else{
 			Factura facturaALiquidar = facturaService.buscarFacturaVehiculo(vehiculoActual);
@@ -45,7 +45,7 @@ public class FacturaRestController {
 		}
 	}
 	
-	@PostMapping(value = "/liquidar")
+	@PostMapping(value = "/facturar")
 	public ResponseEntity<Factura> generarFactura(@RequestBody Factura factura) throws ServiceException {
 		try {
 			return new ResponseEntity<>(this.facturaService.liquidarFactura(factura), HttpStatus.CREATED);
