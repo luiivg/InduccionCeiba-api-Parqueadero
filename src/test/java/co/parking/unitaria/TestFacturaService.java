@@ -2,8 +2,9 @@ package co.parking.unitaria;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
+
+import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,39 +48,32 @@ public class TestFacturaService {
 		Factura factura = fasturaVehiculo.build();
 		Mockito.when(facturaDao.consultarVehiculo(ID_VEHICULO)).thenReturn(factura);
 		
-		VehiculoTestDataBuilder vehiculobuild = new VehiculoTestDataBuilder();
+		VehiculoTestDataBuilder vehiculobuild = new VehiculoTestDataBuilder().setId(ID_VEHICULO).setCilindraje(100)
+				.setActivo(true).setFechIngreso(LocalDateTime.now());
 		Vehiculo vehiculo = vehiculobuild.build();
 		
-		Factura fact =  faturaService.buscarFacturaVehiculo(vehiculo);
+		assertEquals(factura, faturaService.buscarFacturaVehiculo(vehiculo)); 
 		
-		assertNotNull(fact);
-	}
-	
-	@Test
-	public void noEncontrarFacura() throws ServiceException{
 		
-		Mockito.when(facturaDao.consultarVehiculo(ID_VEHICULO)).thenReturn(null);
-		
-		Vehiculo vehiculo = new Vehiculo();
-		
-		Factura fact =  faturaService.buscarFacturaVehiculo(vehiculo);
-		
-		assertNull(fact);
 	}
 	
 	@Test
 	public void liquidarFactura() throws ServiceException{
-		FacturaTestDataBuilder fasturaVehiculo = new FacturaTestDataBuilder();
+		LocalDateTime fechaIngreso = LocalDateTime.now().minusHours(3);
+		LocalDateTime fechaSalida = LocalDateTime.now();
+		FacturaTestDataBuilder fasturaVehiculo = new FacturaTestDataBuilder().setFechaIngreso(fechaIngreso)
+				.setFechaSalida(fechaSalida).setIdVehiculo(ID_VEHICULO);
 		Factura factura = fasturaVehiculo.build();
 		Mockito.when(facturaDao.save(factura)).thenReturn(factura);
 		
-		VehiculoTestDataBuilder vehiculoMoto = new VehiculoTestDataBuilder();
-		Vehiculo vehiculo = vehiculoMoto.build();
-		Mockito.when(vehiculoDao.save(vehiculo)).thenReturn(vehiculo);
+		VehiculoTestDataBuilder vehiculobuild = new VehiculoTestDataBuilder().setId(ID_VEHICULO).setCilindraje(100)
+				.setActivo(true).setFechIngreso(LocalDateTime.now());
+		Vehiculo vehiculo = vehiculobuild.build();
+		Mockito.when(vehiculoDao.consultarVehiculoPorId(factura.getIdVehiculo())).thenReturn(vehiculo);
 		
-		Factura fact = faturaService.liquidarFactura(factura);
+		assertEquals(factura,faturaService.liquidarFactura(factura));
 		
-		assertNotNull(fact);
+		
 	}
 	
 	@Test
@@ -89,9 +83,6 @@ public class TestFacturaService {
 		Factura factura = fasturaVehiculo.build();
 		Mockito.when(facturaDao.save(factura)).thenReturn(null);
 		
-		VehiculoTestDataBuilder vehiculoMoto = new VehiculoTestDataBuilder();
-		Vehiculo vehiculo = vehiculoMoto.build();
-		Mockito.when(vehiculoDao.save(vehiculo)).thenReturn(vehiculo);
 		try{
 			faturaService.liquidarFactura(factura);
 			fail();		

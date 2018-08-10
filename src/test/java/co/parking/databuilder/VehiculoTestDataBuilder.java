@@ -14,7 +14,7 @@ public class VehiculoTestDataBuilder {
 	private String placa;
 	private int cilindraje;
 	private boolean activo;
-	private LocalDateTime fechaIngreso; 
+	private LocalDateTime fechaIngreso;
 
 
 	public VehiculoTestDataBuilder setId(long id) {

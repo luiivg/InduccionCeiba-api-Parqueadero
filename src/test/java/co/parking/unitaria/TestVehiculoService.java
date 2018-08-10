@@ -1,10 +1,8 @@
 package co.parking.unitaria;
 
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -55,20 +53,7 @@ public class TestVehiculoService {
 		MockitoAnnotations.initMocks(this);
 	}
 	
-	@Test
-	public void noFacturaSignupVehiculoTest() throws VehiculoNoAutorizadoException, ServiceException{
-				
-		VehiculoTestDataBuilder vehiculoMoto = new VehiculoTestDataBuilder();
-		Vehiculo vehiculo = vehiculoMoto.build();
-		Mockito.when(vigilante.validarEstaRegistrado(vehiculo)).thenReturn(ID_VEHICULO);
-		Mockito.when(vigilante.celdaDisponible(vehiculo.getTipo(), CELDAS_OCUPADAS)).thenReturn(true);
-		Mockito.when(vigilante.validarAutorizacionDias(vehiculo.getPlaca(), DIA_AUTORIZADO)).thenReturn(true);
-		Mockito.when(vehiculoDao.consultarVehiculoPorPlaca(vehiculo.getPlaca())).thenReturn(vehiculo);
-		Mockito.when(vehiculoDao.save(vehiculo)).thenReturn(null);
-		
-		//assert
-		assertEquals(null,vehiculoService.signupVehiculo(vehiculo));
-	}
+
 	
 	@Test
 	public void signupVehiculoTest() throws VehiculoNoAutorizadoException, ServiceException{
@@ -79,7 +64,7 @@ public class TestVehiculoService {
 		Mockito.when(vigilante.celdaDisponible(vehiculo.getTipo(), CELDAS_OCUPADAS)).thenReturn(true);
 		Mockito.when(vigilante.validarAutorizacionDias(vehiculo.getPlaca(), DIA_AUTORIZADO)).thenReturn(true);
 		Mockito.when(vehiculoDao.consultarVehiculoPorPlaca(vehiculo.getPlaca())).thenReturn(vehiculo);
-		Mockito.when(vehiculoDao.save(vehiculo)).thenReturn(new Vehiculo());
+		Mockito.when(vehiculoDao.save(vehiculo)).thenReturn(vehiculo);
 		
 		LocalDateTime fechaIngreso = LocalDateTime.now().minusHours(3);
 		LocalDateTime fechaSalida = LocalDateTime.now();
@@ -87,9 +72,11 @@ public class TestVehiculoService {
 		Factura factura = facturaBuild.build();
 		Mockito.when(facturaDao.save(factura)).thenReturn(factura);
 		
+		Vehiculo vehiculoResponse = vehiculoService.signupVehiculo(vehiculo);
+		
 		//assert
-		assertEquals(vehiculo,vehiculoService.signupVehiculo(vehiculo));
-	}
+		assertTrue(vehiculoResponse.isActivo());
+	} 
 	
 		
 	@Test

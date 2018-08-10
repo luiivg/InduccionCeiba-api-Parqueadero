@@ -49,7 +49,7 @@ public class TestFacturaRestController {
 	private FacturaService facturaService;
 	
 	@Test
-	public void liqidarFactura500() throws Exception{
+	public void buscarFacturaTest() throws Exception{
 		
 		Vehiculo vehiculo = new Vehiculo();
 		
@@ -62,17 +62,17 @@ public class TestFacturaRestController {
 		
 		String json = "{}";
 		
-		this.mockMvc.perform((MockMvcRequestBuilders.post("/api/factura/generarFactura/{placa}", PLACA).accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON)).content(json)).andExpect(status().isInternalServerError());
+		this.mockMvc.perform((MockMvcRequestBuilders.get("/api/factura/generarFactura/{placa}", PLACA).accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON)).content(json)).andExpect(status().isOk());
 		
 	}
 	
 	@Test
-	public void liqidarFacturaNotFound() throws Exception{
+	public void liquidarFacturaNotFound() throws Exception{
 		
-		String json = "{}";
+		String json = "{ \"tipo\": \"MOTO\" , \"placa\": \"MOTO\" , \"cilindraje\": \"500\"}";
 		
-		this.mockMvc.perform((MockMvcRequestBuilders.post("/api/factura/generarFactura/{placa}", PLACA).accept(MediaType.APPLICATION_JSON)
+		this.mockMvc.perform((MockMvcRequestBuilders.get("/api/factura/generarFactura/{placa}", PLACA).accept(MediaType.APPLICATION_JSON)
 			.contentType(MediaType.APPLICATION_JSON)).content(json)).andExpect(status().isNotFound());
 		
 	}
@@ -80,19 +80,10 @@ public class TestFacturaRestController {
 	@Test
 	public void liqidarFactura() throws Exception{
 		
-		VehiculoTestDataBuilder vehiculobuild = new VehiculoTestDataBuilder().setActivo(true).setCilindraje(200).setPlaca(PLACA).setId(1);
-		Vehiculo vehiculo = vehiculobuild.build();
-		
-		when(vehiculoService.consultarVehiculoPorMatricula(PLACA)).thenReturn(vehiculo);
-		
-		FacturaTestDataBuilder facturaBuid = new FacturaTestDataBuilder();
-		Factura factura = facturaBuid.build();
-		
-		when(facturaService.buscarFacturaVehiculo(vehiculo)).thenReturn(factura);
-		
+			
 		String json = "{}";
 		
-		this.mockMvc.perform((MockMvcRequestBuilders.post("/api/factura/generarFactura/{placa}", PLACA).accept(MediaType.APPLICATION_JSON)
+		this.mockMvc.perform((MockMvcRequestBuilders.post("/api/factura/facturar/").accept(MediaType.APPLICATION_JSON)
 			.contentType(MediaType.APPLICATION_JSON)).content(json)).andExpect(status().isCreated());
 		
 	}
